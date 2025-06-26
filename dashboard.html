@@ -1,0 +1,27 @@
+<!-- File: dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | CycleGAN</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>CycleGAN Style Transfer</h1>
+    <button id="logout-btn" onclick="logout()">Log Out</button>
+  </header>
+
+  <div class="controls">
+    <button onclick="transferStyle('horse_to_zebra')">Horse → Zebra</button>
+    <button onclick="transferStyle('zebra_to_horse')">Zebra → Horse</button>
+  </div>
+
+  <div class="result-container">
+    <img id="result-image" src="" alt="Style Transfer Result">
+  </div>
+
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+</body>
+</html>
