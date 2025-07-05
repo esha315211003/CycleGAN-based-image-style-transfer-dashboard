@@ -1,36 +1,93 @@
-<!-- File: index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login | CycleGAN Dashboard</title>
-  <link rel="stylesheet" href="assets/css/auth.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Auth | GAN Style Transfer</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="auth-container">
-    <h1>CycleGAN Style Transfer</h1>
-    <p>by Esha Akter</p>
-    
-    <!-- Login Form -->
-    <div class="auth-form" id="login-form">
-      <h2>Login</h2>
-      <input type="email" id="login-email" placeholder="Email" required>
-      <input type="password" id="login-password" placeholder="Password" required>
-      <button onclick="login()">Log In</button>
-      <p>Don't have an account? <a href="#" onclick="showSignup()">Sign Up</a></p>
+  <div class="container login-container">
+    <header>
+      <h1>Image Style Transfer Based on<br>GenerativeAdversarial Network</h1>
+      <hr />
+    </header>
+
+    <div class="tab-buttons">
+      <button onclick="showTab('signup')" id="signup-tab" class="active">Sign Up</button>
+      <button onclick="showTab('login')" id="login-tab">Log In</button>
     </div>
 
-    <!-- Signup Form -->
-    <div class="auth-form" id="signup-form" style="display:none;">
+    <!-- SIGN UP FORM -->
+    <form id="signup-form">
       <h2>Sign Up</h2>
-      <input type="text" id="signup-name" placeholder="Name" required>
-      <input type="email" id="signup-email" placeholder="Email" required>
-      <input type="password" id="signup-password" placeholder="Password" required>
-      <button onclick="signup()">Sign Up</button>
-      <p>Already have an account? <a href="#" onclick="showLogin()">Log In</a></p>
-    </div>
+      <div class="form-group">
+        <label for="signup-email">Email:</label>
+        <input type="email" id="signup-email" required placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label for="signup-password">Password:</label>
+        <input type="password" id="signup-password" required placeholder="Create a password">
+      </div>
+      <div class="form-buttons">
+        <button type="submit">Create Account</button>
+      </div>
+    </form>
+
+    <!-- LOG IN FORM -->
+    <form id="login-form" style="display:none;">
+      <h2>Log In</h2>
+      <div class="form-group">
+        <label for="login-email">Email:</label>
+        <input type="email" id="login-email" required placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" required placeholder="Enter your password">
+      </div>
+      <div class="form-buttons">
+        <button type="submit">Log In</button>
+      </div>
+    </form>
   </div>
 
-  <script src="assets/js/auth.js"></script>
+  <script>
+    function showTab(tab) {
+      document.getElementById('signup-form').style.display = tab === 'signup' ? 'block' : 'none';
+      document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
+      document.getElementById('signup-tab').classList.toggle('active', tab === 'signup');
+      document.getElementById('login-tab').classList.toggle('active', tab === 'login');
+    }
+
+    // Sign Up handler
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('userPassword', password);
+
+      alert('Account created! You can now log in.');
+      showTab('login');
+    });
+
+    // Log In handler
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      const storedEmail = localStorage.getItem('userEmail');
+      const storedPassword = localStorage.getItem('userPassword');
+
+      if (email === storedEmail && password === storedPassword) {
+        alert('Login successful!');
+        window.location.href = 'dashboard.html';
+      } else {
+        alert('Invalid email or password!');
+      }
+    });
+  </script>
 </body>
 </html>
