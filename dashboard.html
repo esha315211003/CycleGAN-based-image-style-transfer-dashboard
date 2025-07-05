@@ -1,27 +1,42 @@
-<!-- File: dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dashboard | CycleGAN</title>
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | GAN Style Transfer</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>CycleGAN Style Transfer</h1>
-    <button id="logout-btn" onclick="logout()">Log Out</button>
-  </header>
+  <div class="container">
+    <header>
+      <h1>Image Style Transfer Based on<br>Generative Adversarial Network</h1>
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </header>
 
-  <div class="controls">
-    <button onclick="transferStyle('horse_to_zebra')">Horse → Zebra</button>
-    <button onclick="transferStyle('zebra_to_horse')">Zebra → Horse</button>
+    <nav class="nav-buttons">
+      <button onclick="showImage('horse_to_zebra')">🐎 Horse → Zebra</button>
+      <button onclick="showImage('zebra_to_horse')">🦓 Zebra → Horse</button>
+    </nav>
+
+    <section class="result-section">
+      <h2>Style Transfer Result</h2>
+      <div class="image-container">
+        <img id="gan-image" src="assets/horse_to_zebra.png" alt="Horse to Zebra Result" />
+      </div>
+    </section>
   </div>
 
-  <div class="result-container">
-    <img id="result-image" src="" alt="Style Transfer Result">
-  </div>
+  <script>
+    function showImage(type) {
+      const img = document.getElementById('gan-image');
+      img.src = `assets/${type}.png`;
+      img.alt = `${type.replace(/_/g, ' ')} Result`;
+    }
 
-  <script src="assets/js/auth.js"></script>
-  <script src="assets/js/dashboard.js"></script>
+    function logout() {
+      alert('You have been logged out.');
+      window.location.href = 'auth.html';
+    }
+  </script>
 </body>
 </html>
